@@ -18,7 +18,7 @@ public class HostController {
     @RequestMapping("/api/report/host")
     public HostResponse greeting(@RequestParam(name = "parent", required = false) String parent,
                                  @RequestParam(name = "children", required = false) String children,
-                                 @RequestParam(name = "from", required = false) String from) {
+                                 @RequestParam(name = "src", required = false) String src) {
         HostResponse response = new HostResponse();
         if (StringUtils.isEmpty(parent)) {
             response.setRetcode(-1);

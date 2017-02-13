@@ -16,7 +16,7 @@ GET /api/report/host
 |---|---|---|
 |parent  |String|Requried.Base64 encoded.The prefix of children.|
 | children |String|Base64 encoded.A `\u0000` splited string list|
-| from |String|Indicated which the request if from|
+| src |String|Indicated which the request if from|
 
 
 - response

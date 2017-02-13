@@ -1,14 +1,17 @@
 package org.lion.api.report;
 
 import org.lion.api.response.HostResponse;
+import org.lion.dao.ReportHostDao;
+import org.lion.model.ReportHostModel;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
 import java.util.Base64;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by lion on 2/11/17.
@@ -24,10 +27,13 @@ public class HostController {
             response.setRetcode(-1);
             response.require("parent");
         } else {
+            ReportHostModel model = new ReportHostModel();
             parent = new String(Base64.getDecoder().decode(parent));
-            Set<String> set = new HashSet<>();
+            model.setParent(parent);
+            Set<String> set = new TreeSet<>();
             if (!StringUtils.isEmpty(children)) {
                 children = new String(Base64.getDecoder().decode(children));
+                model.setChildren(children);
                 String[] splits = children.split("\u0000");
                 for (String s : splits) {
                     set.add(parent + s);
@@ -38,6 +44,11 @@ public class HostController {
                 response.setCount(1);
             }
             response.setRetcode(0);
+            try {
+                new ReportHostDao().addReport(model);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return response;
     }

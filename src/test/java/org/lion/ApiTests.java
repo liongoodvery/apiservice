@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -29,10 +28,8 @@ public class ApiTests {
     @Test
     public void testApiDir() throws Exception {
 
-        this.mockMvc.perform(get("/api/report/host")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.retcode").value(0));
-        this.mockMvc.perform(get("/api/report/host?parent=tmp")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.retcode").value(0));
+        this.mockMvc.perform(get("/api/report/host?parent=cGFyZW50Cg==&children=MQAy")).andDo(print()).andExpect(status().isOk());
+
     }
 
     @Test

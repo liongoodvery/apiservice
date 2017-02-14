@@ -24,9 +24,7 @@ public class ApiTests {
 
     @Test
     public void testApiDir() throws Exception {
-
         this.mockMvc.perform(get("/api/report/host?parent=cGFyZW50Cg==&children=MQAy")).andDo(print()).andExpect(status().isOk());
-
     }
 
     @Test

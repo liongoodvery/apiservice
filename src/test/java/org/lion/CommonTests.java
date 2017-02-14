@@ -2,6 +2,7 @@ package org.lion;
 
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.util.Base64;
 
 /**
@@ -14,5 +15,11 @@ public class CommonTests {
         StringBuilder sb = new StringBuilder();
         sb.append(1).append(nullStr).append(2);
         System.out.println(new String(Base64.getEncoder().encode(sb.toString().getBytes())));
+    }
+
+    @Test
+    public void test20() throws Exception {
+        Timestamp time = new Timestamp(1111111);
+        System.out.println(time);
     }
 }

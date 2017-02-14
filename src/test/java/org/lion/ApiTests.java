@@ -1,8 +1,5 @@
 package org.lion;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +31,9 @@ public class ApiTests {
 
     @Test
     public void test36() throws Exception {
-        Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
-        Element body = doc.body();
+        long timestamp = System.currentTimeMillis();///1487051478992
+        System.out.println(timestamp);
+        this.mockMvc.perform(get("/api/report/query-host?count=2")).andDo(print()).andExpect(status().isOk());
     }
 
 }

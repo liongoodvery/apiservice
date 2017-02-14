@@ -1,7 +1,9 @@
 package org.lion.api.report;
 
+import org.lion.api.response.HostQueryResponse;
 import org.lion.api.response.HostResponse;
 import org.lion.dao.ReportHostDao;
+import org.lion.model.HostQueryModel;
 import org.lion.model.ReportHostModel;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -49,6 +52,32 @@ public class HostController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return response;
+    }
+
+
+    @RequestMapping("/api/report/query-host")
+    public HostQueryResponse queryHost(@RequestParam(name = "time", required = false) Long timestamp,
+                                       @RequestParam(name = "count", required = false) Integer count,
+                                       @RequestParam(name = "src", required = false) String src) {
+        HostQueryResponse response = new HostQueryResponse();
+        if (timestamp == null || timestamp < 0) {
+            timestamp = System.currentTimeMillis();
+        }
+        if (count == null || count <= 0) {
+            count = 1;
+        }
+
+        ReportHostDao dao = new ReportHostDao();
+
+        try {
+            List<HostQueryModel> models = dao.query(timestamp, count, src);
+            response.setData(models);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setRetcode(-1);
+            response.setMsg(e.getMessage());
         }
         return response;
     }

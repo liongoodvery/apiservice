@@ -34,6 +34,8 @@ public class ApiTests {
         long timestamp = System.currentTimeMillis();///1487051478992
         System.out.println(timestamp);
         this.mockMvc.perform(get("/api/report/query-host?count=2")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/report/query-host")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/report/query-host?time=1487051478992&count=3")).andDo(print()).andExpect(status().isOk());
     }
 
 }

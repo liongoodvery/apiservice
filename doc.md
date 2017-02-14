@@ -4,13 +4,16 @@
 
 ### report host
 
-- method
+- Description  
+
+
+- Method
 
 ```text
 GET /api/report/host
 ```
 
-- parameters
+- Parameters
 
 | Name |Type|Description|
 |---|---|---|
@@ -19,9 +22,9 @@ GET /api/report/host
 | src |String|Indicated which the request if from|
 
 
-- response
+- Response
 
-    - case 1
+    - Case 1
     
     ```text
     GET /api/report/host
@@ -35,7 +38,7 @@ GET /api/report/host
     }    
     ```
     
-    - case 2
+    - Case 2
     
     ```text
     GET /api/report/host?parent=cGFyZW50Cg==
@@ -48,7 +51,7 @@ GET /api/report/host
     }   
     ```
    
-    - case 3
+    - Case 3
     
     ```text
     GET /api/report/host?parent=cGFyZW50Cg==&children=MQAy
@@ -60,3 +63,72 @@ GET /api/report/host
       "count":2
     }   
     ```
+
+
+===
+
+### query-host
+
+
+- Method
+
+```text
+GET /api/report/query-host
+```
+
+- Parameters
+
+| Name |Type|Description|
+|---|---|---|
+| time|long|The timestamp of before which the query will perform . Defalut is the current timestamp|
+| count|int|The max count of  record . Default is 1|
+| src|String|The source the report is from , not supported yet|
+
+
+- Response
+
+    - Case 1
+        ```text
+        GET /api/report/query-host?time=1487051478992&count=1
+        ```
+        
+        ```text
+         {
+           "retcode": 0,
+           "data": [
+             {
+               "timestamp": 1487034407000,
+               "hosts": [
+                 "192.168.1.1",
+                 "192.168.1.252"
+               ]
+             }
+           ]
+         }
+        ```    
+    - Case 2
+         ```text
+                GET /api/report/query-host?count=2
+         ```
+         
+         ```text
+         {
+           "retcode": 0,
+           "data": [
+             {
+               "timestamp": 1487034407000,
+               "hosts": [
+                 "192.168.1.1",
+                 "192.168.1.252"
+               ]
+             },
+             {
+               "timestamp": 1486979826000,
+               "hosts": [
+                 "192.168.1.9",
+                 "192.168.1.95"
+               ]
+             }
+           ]
+         }
+         ```
